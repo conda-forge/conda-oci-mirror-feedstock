@@ -27,6 +27,7 @@ requirements:
     - oras-py 0.1.14
     - conda-package-handling
     - zstandard
+    - setuptools >=68.2.2
 
 test:
   imports:
