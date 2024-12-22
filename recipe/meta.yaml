@@ -12,16 +12,16 @@ source:
 
 build:
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
   noarch: python
 
 requirements:
   host:
-    - python >=3.7
+    - python {{ python_min }}
     - pip
     - setuptools
   run:
-    - python >=3.7
+    - python >={{ python_min }}
     - click
     - requests
     - oras-py 0.1.14
@@ -36,6 +36,7 @@ test:
     - conda_oci_mirror.repo
   requires:
     - pip
+    - python {{ python_min }}
   commands:
     - pip check
     - conda-oci --help
