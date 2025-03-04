@@ -1,5 +1,5 @@
 {% set name = "conda-oci-mirror" %}
-{% set version = "0.2.1" %}
+{% set version = "0.2.3" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://github.com/channel-mirrors/conda-oci-mirror/archive/v{{ version }}.tar.gz
-  sha256: 21d421a798753dcb8afcb1733d55d0f8c5f2748545b13cf44ec80b53fdf7d77f
+  sha256: de16d99cdbba9e6584b0fbbca27e1464ae2471448ad1a3c0fe585c5ad40bf2f0
 
 
 build:
   script: {{ PYTHON }} -m pip install . -vv
-  number: 1
+  number: 0
   noarch: python
 
 requirements:
