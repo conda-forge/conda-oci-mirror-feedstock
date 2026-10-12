@@ -1,0 +1,63 @@
+schema_version: 1
+
+context:
+  version: "0.3.0"
+
+package:
+  name: conda-oci-mirror
+  version: ${{ version }}
+
+source:
+  url: https://github.com/channel-mirrors/conda-oci-mirror/archive/v${{ version }}.tar.gz
+  sha256: 957b13cacdea4064f8ecff3178829377f9f9db5ad57ae0684725cd0f01f31b0c
+
+build:
+  number: 0
+  noarch: python
+  script:
+    env:
+      SETUPTOOLS_SCM_PRETEND_VERSION: ${{ version }}
+    content:
+      - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+
+requirements:
+  host:
+    - python ${{ python_min }}.*
+    - pip
+    - setuptools
+    - setuptools_scm
+  run:
+    - python >=${{ python_min }}
+    - click
+    - requests
+    - oras-py ==0.1.14
+    - conda-package-handling
+    - zstandard
+    - packaging
+    - py-rattler >=0.15
+    - msgpack-python
+
+tests:
+  - python:
+      imports:
+        - conda_oci_mirror
+        - conda_oci_mirror.mirror
+        - conda_oci_mirror.repo
+      pip_check: true
+      python_version: ${{ python_min }}.*
+  - script:
+      - conda-oci --help
+    requirements:
+      run:
+        - python ${{ python_min }}.*
+
+about:
+  homepage: https://github.com/channel-mirrors/conda-oci-mirror
+  summary: Tools to mirror conda packages to an OCI registry
+  license: BSD-3-Clause
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - jaimergp
+    - wolfv
